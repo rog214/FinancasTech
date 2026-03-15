@@ -1,0 +1,262 @@
+<header class="cabecalho-dashboard">
+  <div class="header-topo">
+    <div class="logo-area">
+      <svg class="logo-icone" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      <h1>Finanças</h1>
+    </div>
+    
+    <button class="tema-toggle" (click)="temaService.alternarTema()" [attr.aria-label]="temaService.estaNoModoEscuro() ? 'Mudar para modo claro' : 'Mudar para modo escuro'">
+      <!-- Icone de Sol (Claro) -->
+      <svg *ngIf="temaService.estaNoModoEscuro()" class="icon-tema" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+      </svg>
+      <!-- Icone de Lua (Escuro) -->
+      <svg *ngIf="!temaService.estaNoModoEscuro()" class="icon-tema" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div class="cartoes-resumo">
+    <div class="cartao-total">
+      <h3>Receitas</h3>
+      <p class="valor-receita">R$ {{ totais.receitas | number:'1.2-2' }}</p>
+    </div>
+    <div class="cartao-total">
+      <h3>Gastos</h3>
+      <p class="valor-gasto">R$ {{ totais.gastos | number:'1.2-2' }}</p>
+    </div>
+    <div class="cartao-total destaque-saldo">
+      <h3>Saldo Atual</h3>
+      <p class="valor-saldo">R$ {{ totais.saldo | number:'1.2-2' }}</p>
+    </div>
+  </div>
+</header>
+
+<main class="conteudo-principal">
+  <section class="secao-formulario" aria-labelledby="titulo-formulario">
+    <header class="header-secao toggle-header" (click)="toggleFormulario()" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h2 id="titulo-formulario">Nova Transação</h2>
+        <p class="subtitulo">Adicione uma receita ou gasto ao seu balanço.</p>
+      </div>
+      <button type="button" class="btn-icon" [attr.aria-expanded]="mostrarFormulario" [title]="mostrarFormulario ? 'Ocultar Formulário' : 'Exibir Formulário'">
+        <svg class="icone-toggle" [class.rodar]="!mostrarFormulario" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px;">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+        </svg>
+      </button>
+    </header>
+    
+    <div class="form-wrapper" [class.oculto]="!mostrarFormulario">
+      <form (ngSubmit)="aoEnviar()" #formulario="ngForm" class="formulario-transacao">
+      <div class="linha-form grid-header">
+        <div class="grupo-campo titulo-input">
+          <label for="titulo">Título</label>
+          <input type="text" id="titulo" [(ngModel)]="novoItem.titulo" name="titulo" placeholder="Ex: Conta de Luz" required>
+        </div>
+        <div class="grupo-campo data-input">
+          <label for="vencimento">Data</label>
+          <input type="text" id="vencimento" [(ngModel)]="novoItem.dataVencimento" name="dataVencimento" 
+                 (input)="formatarEntradaData($event, 'novo')" (blur)="aoPerderFocoData($event, 'novo')" placeholder="DD/MM" pattern="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])" maxlength="5" required>
+        </div>
+        <div class="grupo-campo valor-input">
+          <label for="valor">Valor (R$)</label>
+          <input type="number" id="valor" [(ngModel)]="novoItem.valor" name="valor" placeholder="0.00" required>
+        </div>
+        <div class="grupo-campo tipo-input">
+          <label for="tipo">Tipo da Transação</label>
+          <select id="tipo" [(ngModel)]="novoItem.tipo" name="tipo" required>
+            <option [value]="TipoTransacao.RECEITA">Receita</option>
+            <option [value]="TipoTransacao.GASTO">Gasto</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="linha-form grid-valores">
+        <div class="grupo-campo observacao-input">
+          <label for="observacao">Observação (Opcional)</label>
+          <input type="text" id="observacao" [(ngModel)]="novoItem.observacao" name="observacao" placeholder="Algum detalhe a mais?">
+        </div>
+      </div>
+      
+      <div class="linha-form acoes-finais">
+        <div class="grupo-campo checkbox-container">
+          <label for="estaPago" class="checkbox-label">
+            <div class="checkbox-custom">
+              <input type="checkbox" id="estaPago" [(ngModel)]="novoItem.estaPago" name="estaPago">
+              <span class="checkmark"></span>
+            </div>
+            <span>Status Pago</span>
+          </label>
+        </div>
+        
+        <div class="acoes-formulario">
+          <button type="submit" [disabled]="!formulario.valid" class="btn-adicionar">
+            Adicionar Registro
+          </button>
+        </div>
+      </div>
+    </form>
+    </div>
+  </section>
+
+  <section class="secao-listagem" aria-labelledby="titulo-registros">
+    <header class="header-secao flex-between">
+      <h2 id="titulo-registros">Últimos Registros</h2>
+      <span class="contador-registros">{{ receitas.length + gastos.length }} itens</span>
+    </header>
+    
+    <div class="lista-vazia" *ngIf="receitas.length === 0 && gastos.length === 0">
+      <svg class="icone-vazio" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+      </svg>
+      <p>Nenhuma transação cadastrada ainda.</p>
+    </div>
+    
+    <div class="tabs-container" *ngIf="receitas.length > 0 || gastos.length > 0">
+      <button 
+        class="tab-btn receita" 
+        [class.ativo]="abaAtiva === 'receitas'" 
+        (click)="mudarAba('receitas')">
+        Exibir Receitas
+      </button>
+      <button 
+        class="tab-btn gasto" 
+        [class.ativo]="abaAtiva === 'gastos'" 
+        (click)="mudarAba('gastos')">
+        Exibir Despesas
+      </button>
+    </div>
+    
+    <div class="aba-conteudo" *ngIf="receitas.length > 0 || gastos.length > 0">
+      
+      <p class="txt-vazio" *ngIf="transacoesAtivas.length === 0">
+        Nenhuma {{ abaAtiva === 'receitas' ? 'receita' : 'despesa' }} registrada.
+      </p>
+
+      <ul class="lista-transacoes layout-aba">
+        <li class="item-transacao" *ngFor="let t of itensPaginados"
+            [class.receita]="abaAtiva === 'receitas'"
+            [class.gasto]="abaAtiva === 'gastos'">
+          <div class="indicador-tipo"></div>
+            <article class="detalhes-item">
+              <header class="principal-item">
+                <strong class="item-titulo">{{ t.titulo }}</strong> 
+                <span class="item-valor">R$ {{ t.valor | number:'1.2-2' }}</span>
+              </header>
+              <div class="secundario-item">
+                <div class="info-group">
+                  <svg class="icon-micro" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                  <time [attr.datetime]="t.dataVencimento">{{ t.dataVencimento | date:'dd/MM' }}</time> 
+                </div>
+                <div class="info-group" *ngIf="t.observacao">
+                  <span class="dot-separator">•</span>
+                  <span>{{ t.observacao }}</span>
+                </div>
+              </div>
+              <div class="acoes-registro">
+                <label class="toggle-pagamento-bttn" [class.ativo]="t.estaPago">
+                  <input type="checkbox" [checked]="t.estaPago" (change)="alternarPagamento(t)" title="Alternar Pagamento">
+                  <div class="toggle-circle"></div>
+                </label>
+                <div class="botoes-acao">
+                  <button type="button" class="btn-icon" (click)="editarTransacao(t)" title="Editar">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                  </button>
+                  <button type="button" class="btn-icon danger" (click)="abrirModalExclusao(t.id)" title="Remover">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                  </button>
+                </div>
+              </div>
+            </article>
+          </li>
+        </ul>
+
+      <!-- Controles de Paginação -->
+      <nav class="paginacao-container" *ngIf="totalPaginas > 1" aria-label="Navegação de páginas">
+        <button class="btn-paginacao" (click)="mudarPagina(paginaAtual - 1)" [disabled]="paginaAtual === 1" title="Página Anterior">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 18px; height: 18px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+          Anterior
+        </button>
+        <span class="paginacao-info">Página {{ paginaAtual }} de {{ totalPaginas }}</span>
+        <button class="btn-paginacao" (click)="mudarPagina(paginaAtual + 1)" [disabled]="paginaAtual === totalPaginas" title="Próxima Página">
+          Próximo
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 18px; height: 18px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+      </nav>
+
+    </div>
+  </section>
+</main>
+
+<!-- Modal de Edição -->
+<div class="modal-overlay" *ngIf="isEditModalOpen" (click)="fecharModais()">
+  <div class="modal-conteudo modal-edicao" (click)="$event.stopPropagation()">
+    <header class="modal-header">
+      <h2>Editar Registro</h2>
+      <button class="btn-fechar" (click)="fecharModais()">&times;</button>
+    </header>
+    
+    <form (ngSubmit)="aoEnviarEdicao()" #formularioEdicao="ngForm" class="formulario-transacao">
+      <div class="linha-form grid-header">
+        <div class="grupo-campo titulo-input">
+          <label for="titulo-edit">Título</label>
+          <input type="text" id="titulo-edit" [(ngModel)]="itemEditando.titulo" name="tituloEdit" required>
+        </div>
+        <div class="grupo-campo data-input">
+          <label for="vencimento-edit">Data</label>
+          <input type="text" id="vencimento-edit" [(ngModel)]="itemEditando.dataVencimento" name="dataVencimentoEdit" 
+                 (input)="formatarEntradaData($event, 'editando')" (blur)="aoPerderFocoData($event, 'editando')" placeholder="DD/MM" pattern="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])" maxlength="5" required>
+        </div>
+        <div class="grupo-campo valor-input">
+          <label for="valor-edit">Valor (R$)</label>
+          <input type="number" id="valor-edit" [(ngModel)]="itemEditando.valor" name="valorEdit" required>
+        </div>
+        <div class="grupo-campo tipo-input">
+          <label for="tipo-edit">Tipo da Transação</label>
+          <select id="tipo-edit" [(ngModel)]="itemEditando.tipo" name="tipoEdit" required>
+            <option [value]="TipoTransacao.RECEITA">Receita</option>
+            <option [value]="TipoTransacao.GASTO">Gasto</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="linha-form grid-valores">
+        <div class="grupo-campo observacao-input">
+          <label for="observacao-edit">Observação</label>
+          <input type="text" id="observacao-edit" [(ngModel)]="itemEditando.observacao" name="observacaoEdit">
+        </div>
+      </div>
+      <div class="linha-form acoes-finais margem-top">
+        <div class="modal-footer acoes-formulario">
+          <button type="button" class="btn-cancelar" (click)="fecharModais()">Cancelar</button>
+          <button type="submit" [disabled]="!formularioEdicao.valid" class="btn-adicionar">Salvar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal de Confirmação de Exclusão -->
+<div class="modal-overlay" *ngIf="isDeleteModalOpen" (click)="fecharModais()">
+  <div class="modal-conteudo modal-delete" (click)="$event.stopPropagation()">
+    <div class="icon-danger-circle">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+      </svg>
+    </div>
+    <h2>Excluir Transação</h2>
+    <p>Tem certeza que deseja remover este registro permanentemente?<br>Essa ação não pode ser desfeita.</p>
+    
+    <div class="modal-footer btn-duplos">
+      <button type="button" class="btn-cancelar" (click)="fecharModais()">Cancelar</button>
+      <button type="button" class="btn-deletar" (click)="confirmarExclusao()">Sim, excluir</button>
+    </div>
+  </div>
+</div>
+
+<footer class="rodape-aplicacao">
+  <p>Desenvolvido por <strong>Roger Fernandes</strong> | <a href="https://www.linkedin.com/in/dev-roger" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+</footer>

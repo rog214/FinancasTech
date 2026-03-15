@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Cores Base - Claro */
+  --bg-color: #fafafa;
+  --surface-color: #ffffff;
+  --border-color: #eaeaea;
+  
+  /* Textos - Claro */
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  
+  /* Destaques (Acentos) */
+  --accent-color: #111827;
+  --accent-hover: #374151;
+  --focus-ring: rgba(17, 24, 39, 0.2);
+
+  /* Funcionais */
+  --color-receita: #10b981;
+  --bg-receita: #ecfdf5;
+  --color-gasto: #ef4444;
+  --bg-gasto: #fef2f2;
+  --color-saldo-positivo: #3b82f6;
+  --bg-saldo-positivo: #eff6ff;
+
+  /* Sombras e Bordas */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  --transicao: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme='dark'] {
+  /* Cores Base - Escuro */
+  --bg-color: #09090b;
+  --surface-color: #121214;
+  --border-color: #27272a;
+  
+  /* Textos - Escuro */
+  --text-primary: #f9fafb;
+  --text-secondary: #a1a1aa;
+  
+  /* Destaques (Acentos) */
+  --accent-color: #ffffff;
+  --accent-hover: #e5e7eb;
+  --focus-ring: rgba(255, 255, 255, 0.3);
+
+  /* Funcionais - Escuro */
+  --color-receita: #34d399;
+  --bg-receita: rgba(16, 185, 129, 0.1);
+  --color-gasto: #f87171;
+  --bg-gasto: rgba(239, 68, 68, 0.1);
+  --color-saldo-positivo: #60a5fa;
+  --bg-saldo-positivo: rgba(59, 130, 246, 0.1);
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Scrollbar minimalista */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color); 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: var(--border-color); 
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary); 
+}
