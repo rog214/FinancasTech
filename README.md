@@ -1,59 +1,40 @@
-# FinancasApp
+# 💰 Finanças Tech
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.1.
+O **Finanças Tech** é um projeto pessoal desenvolvido para consolidar conhecimentos no ecossistema Angular, oferecendo uma aplicação web moderna e intuitiva para o controle de finanças pessoais.
 
-## Development server
+## 🚀 Demonstração
 
-To start a local development server, run:
+A aplicação está disponível online e pode ser testada diretamente pelo navegador através do Vercel:
+**[Acessar Finanças Tech](https://financas-tech.vercel.app/)**
 
-```bash
-ng serve
-```
+## 💡 Sobre a Arquitetura e Persistência
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Por se tratar de um projeto pessoal de pequeno porte com foco principal na construção da interface, experiência do usuário (UX) e nas lógicas de front-end, optei por utilizar **Persistência Local (Local Storage)**. 
 
-## Code scaffolding
+Isso significa que todos os dados inseridos são salvos diretamente no navegador do usuário. Essa abordagem permite que a aplicação seja rápida, autossuficiente e fácil de testar, dispensando a necessidade de configurar um servidor, banco de dados ou uma API back-end para o seu funcionamento inicial.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## ✨ Funcionalidades
 
-```bash
-ng generate component component-name
-```
+- **Dashboard Completa**: Tenha uma visão clara e resumida do seu saldo atual, total de receitas e despesas.
+- **Gestão de Transações**: Interface simples e direta para adicionar, editar e remover registros financeiros.
+- **Status de Pagamento**: Controle dinâmico do que já foi pago e do que ainda está pendente com apenas um clique.
+- **Modo Escuro/Claro**: Interface adaptável para melhor conforto visual do usuário.
+- **Interface Responsiva**: Design premium e fluido, projetado para se adaptar perfeitamente a telas de computadores, tablets e celulares.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🛠️ Tecnologias Utilizadas
 
-```bash
-ng generate --help
-```
+- **[Angular](https://angular.io/)**: Framework principal para a construção da SPA (Single Page Application).
+- **[TypeScript](https://www.typescriptlang.org/)**: Adicionando tipagem estática e segurança ao código JavaScript.
+- **[Vanilla CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)**: Estilização customizada com a criação de um Design System próprio.
+- **[Lucide Icons](https://lucide.dev/)**: Biblioteca de ícones em SVG leves e modernos.
 
-## Building
+## 💻 Como rodar localmente
 
-To build the project run:
+1. Clone este repositório: `git clone URL_DO_SEU_REPOSITORIO`
+2. Acesse a pasta do projeto: `cd financas-tech`
+3. Instale as dependências necessárias: `npm install`
+4. Inicie o servidor de desenvolvimento: `ng serve`
+5. Acesse a aplicação no seu navegador: `http://localhost:4200/`
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+Desenvolvido por **Roger Fernandes**.
