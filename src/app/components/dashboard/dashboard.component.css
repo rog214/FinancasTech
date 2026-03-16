@@ -650,7 +650,7 @@
   padding: 12px 14px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
   box-shadow: var(--shadow-sm);
   transition: var(--transicao);
   position: relative;
@@ -676,6 +676,9 @@
 .detalhes-item {
   flex: 1;
   padding-left: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .principal-item {
@@ -690,11 +693,17 @@
   font-weight: 600;
   color: var(--text-primary);
   letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  padding-right: 12px;
 }
 
 .item-valor {
   font-weight: 700;
   font-size: 1rem;
+  flex-shrink: 0;
 }
 
 .item-transacao.receita .item-valor { color: var(--color-receita); }
@@ -715,15 +724,28 @@
   gap: 4px;
 }
 
+.info-group:has(.texto-observacao) {
+  flex: 1 1 100%;
+}
+
+.texto-observacao {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
 .icon-micro {
   width: 14px;
   height: 14px;
   opacity: 0.7;
+  flex-shrink: 0;
 }
 
 .dot-separator {
   opacity: 0.5;
   font-size: 0.7em;
+  flex-shrink: 0;
 }
 
 /* Badges Modernas */
@@ -754,7 +776,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 8px;
+  margin-top: auto;
   padding-top: 8px;
   border-top: 1px solid var(--border-color);
 }

@@ -4,7 +4,7 @@
       <svg class="logo-icone" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
       </svg>
-      <h1>Finanças</h1>
+      <h1>Finanças Tech</h1>
     </div>
     
     <button class="tema-toggle" (click)="temaService.alternarTema()" [attr.aria-label]="temaService.estaNoModoEscuro() ? 'Mudar para modo claro' : 'Mudar para modo escuro'">
@@ -25,7 +25,7 @@
       <p class="valor-receita">R$ {{ totais.receitas | number:'1.2-2' }}</p>
     </div>
     <div class="cartao-total">
-      <h3>Gastos</h3>
+      <h3>Despesas</h3>
       <p class="valor-gasto">R$ {{ totais.gastos | number:'1.2-2' }}</p>
     </div>
     <div class="cartao-total destaque-saldo">
@@ -40,7 +40,7 @@
     <header class="header-secao toggle-header" (click)="toggleFormulario()" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
       <div>
         <h2 id="titulo-formulario">Nova Transação</h2>
-        <p class="subtitulo">Adicione uma receita ou gasto ao seu balanço.</p>
+        <p class="subtitulo">Adicione uma receita ou despesa ao seu balanço.</p>
       </div>
       <button type="button" class="btn-icon" [attr.aria-expanded]="mostrarFormulario" [title]="mostrarFormulario ? 'Ocultar Formulário' : 'Exibir Formulário'">
         <svg class="icone-toggle" [class.rodar]="!mostrarFormulario" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px;">
@@ -54,7 +54,7 @@
       <div class="linha-form grid-header">
         <div class="grupo-campo titulo-input">
           <label for="titulo">Título</label>
-          <input type="text" id="titulo" [(ngModel)]="novoItem.titulo" name="titulo" placeholder="Ex: Conta de Luz" required>
+          <input type="text" id="titulo" [(ngModel)]="novoItem.titulo" name="titulo" placeholder="Ex: Conta de Luz" maxlength="40" required>
         </div>
         <div class="grupo-campo data-input">
           <label for="vencimento">Data</label>
@@ -69,7 +69,7 @@
           <label for="tipo">Tipo da Transação</label>
           <select id="tipo" [(ngModel)]="novoItem.tipo" name="tipo" required>
             <option [value]="TipoTransacao.RECEITA">Receita</option>
-            <option [value]="TipoTransacao.GASTO">Gasto</option>
+            <option [value]="TipoTransacao.GASTO">Despesa</option>
           </select>
         </div>
       </div>
@@ -77,7 +77,7 @@
       <div class="linha-form grid-valores">
         <div class="grupo-campo observacao-input">
           <label for="observacao">Observação (Opcional)</label>
-          <input type="text" id="observacao" [(ngModel)]="novoItem.observacao" name="observacao" placeholder="Algum detalhe a mais?">
+          <input type="text" id="observacao" [(ngModel)]="novoItem.observacao" name="observacao" placeholder="Algum detalhe a mais?" maxlength="80">
         </div>
       </div>
       
@@ -153,7 +153,7 @@
                 </div>
                 <div class="info-group" *ngIf="t.observacao">
                   <span class="dot-separator">•</span>
-                  <span>{{ t.observacao }}</span>
+                  <span class="texto-observacao" [title]="t.observacao">{{ t.observacao }}</span>
                 </div>
               </div>
               <div class="acoes-registro">
@@ -203,7 +203,7 @@
       <div class="linha-form grid-header">
         <div class="grupo-campo titulo-input">
           <label for="titulo-edit">Título</label>
-          <input type="text" id="titulo-edit" [(ngModel)]="itemEditando.titulo" name="tituloEdit" required>
+          <input type="text" id="titulo-edit" [(ngModel)]="itemEditando.titulo" name="tituloEdit" maxlength="40" required>
         </div>
         <div class="grupo-campo data-input">
           <label for="vencimento-edit">Data</label>
@@ -218,7 +218,7 @@
           <label for="tipo-edit">Tipo da Transação</label>
           <select id="tipo-edit" [(ngModel)]="itemEditando.tipo" name="tipoEdit" required>
             <option [value]="TipoTransacao.RECEITA">Receita</option>
-            <option [value]="TipoTransacao.GASTO">Gasto</option>
+            <option [value]="TipoTransacao.GASTO">Despesa</option>
           </select>
         </div>
       </div>
@@ -226,7 +226,7 @@
       <div class="linha-form grid-valores">
         <div class="grupo-campo observacao-input">
           <label for="observacao-edit">Observação</label>
-          <input type="text" id="observacao-edit" [(ngModel)]="itemEditando.observacao" name="observacaoEdit">
+          <input type="text" id="observacao-edit" [(ngModel)]="itemEditando.observacao" name="observacaoEdit" maxlength="80">
         </div>
       </div>
       <div class="linha-form acoes-finais margem-top">
