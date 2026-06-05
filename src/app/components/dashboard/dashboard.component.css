@@ -1,4 +1,4 @@
-/* Estrutura Principal */
+
 :host {
   display: flex;
   flex-direction: column;
@@ -14,7 +14,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Header Topo e Logo/Tema */
+
 .header-topo {
   display: flex;
   justify-content: space-between;
@@ -42,7 +42,7 @@
   letter-spacing: -0.03em;
 }
 
-/* Toggle do Tema Minimalista */
+
 .tema-toggle {
   background: transparent;
   border: 1px solid var(--border-color);
@@ -69,7 +69,7 @@
   height: 22px;
 }
 
-/* Cartões de Resumo */
+
 .cartoes-resumo {
   display: flex;
   gap: 20px;
@@ -123,7 +123,7 @@
 .destaque-saldo h3 { color: var(--color-saldo-positivo); }
 .destaque-saldo p { color: var(--color-saldo-positivo); }
 
-/* Corpo Principal */
+
 .conteudo-principal {
   flex: 1;
   display: flex;
@@ -131,7 +131,7 @@
   gap: 40px;
 }
 
-/* Títulos de Seção */
+
 .header-secao {
   margin-bottom: 24px;
 }
@@ -165,7 +165,7 @@
   color: var(--text-secondary);
 }
 
-/* Formulário Moderno */
+
 .secao-formulario {
   background: var(--surface-color);
   padding: 32px;
@@ -189,7 +189,7 @@
   flex: 1;
 }
 
-/* Nova grade 3 colunas Header */
+
 .linha-form.grid-header {
   display: flex;
   align-items: flex-end;
@@ -197,11 +197,11 @@
 }
 
 .grupo-campo.titulo-input {
-  flex: 3; /* Título volta a ter muito espaço, mas divide com O Tipo e Valor */
+  flex: 3; 
 }
 
 .grupo-campo.data-input {
-  flex: 0 0 100px; /* Não estica, não encolhe, fica fixo em 100px que comporta DD/MM */
+  flex: 0 0 100px; 
   max-width: 100px;
 }
 
@@ -215,21 +215,21 @@
   max-width: 140px;
 }
 
-/* Nova grade reduzida para Valores e Tipo */
+
 .linha-form.grid-valores {
-  align-items: flex-end; /* Mantém os inputs num grid padronizado */
+  align-items: flex-end; 
   gap: 20px;
 }
 
 .grupo-campo.observacao-input {
-  flex: 1; /* Agora Observação ocupa sozinha a linha 2 */
+  flex: 1; 
 }
 
 .linha-form.alinhar-centro {
   align-items: flex-end;
 }
 
-/* Nova grade de botões finais (Checkbox + Submit) */
+
 .linha-form.acoes-finais {
   display: flex;
   justify-content: space-between;
@@ -237,18 +237,18 @@
   margin-top: 10px;
 }
 
-/* Breakpoints de Responsividade */
 
-/* Tablets e Telas Menores (até 850px) */
+
+
 @media (max-width: 850px) {
   .modal-edicao {
-    width: 95%; /* Reduz a largura estática do Modal de 800px p/ caber em Tablets */
+    width: 95%; 
     max-width: 800px;
     padding: 20px;
   }
 }
 
-/* Celulares (até 640px) */
+
 @media (max-width: 640px) {
   .linha-form { 
     flex-direction: column; 
@@ -264,7 +264,7 @@
 
   .linha-form.alinhar-centro { align-items: stretch; }
 
-  /* Força a quebra dos limites fixos dimensionais imposto ao Desktop */
+  
   .grupo-campo.titulo-input,
   .grupo-campo.data-input,
   .grupo-campo.valor-input,
@@ -344,7 +344,7 @@
   background-color: var(--surface-color);
 }
 
-/* Custom Checkbox */
+
 .checkbox-container {
   padding-bottom: 12px;
   display: flex;
@@ -409,7 +409,7 @@
   display: block;
 }
 
-/* Botões de Ação do Formulário / Adicionar e Cancelar */
+
 .acoes-formulario {
   display: flex;
   align-items: center;
@@ -468,7 +468,7 @@
   box-shadow: none;
 }
 
-/* Listagem Semântica */
+
 .icone-vazio {
   width: 64px;
   height: 64px;
@@ -488,7 +488,7 @@
   margin: 0 auto;
 }
 
-/* Navegação por Abas (Tabs) */
+
 .tabs-container {
   display: flex;
   gap: 16px;
@@ -519,7 +519,7 @@
   color: var(--text-primary);
 }
 
-/* Indicador de Aba Ativa */
+
 .tab-btn.ativo::after {
   content: '';
   position: absolute;
@@ -534,7 +534,7 @@
 .tab-btn.receita.ativo::after { background-color: var(--color-receita); }
 .tab-btn.gasto.ativo::after { background-color: var(--color-gasto); }
 
-/* Containers */
+
 
 .titulo-coluna {
   margin: 0 0 15px 0;
@@ -552,7 +552,7 @@
   margin-top: 10px;
 }
 
-/* Super Grid: 3 Colunas Fixas para Registros de uma mesma Aba, caindo pra 1 em Mobile */
+
 .lista-transacoes {
   list-style: none;
   padding: 0;
@@ -574,7 +574,7 @@
   }
 }
 
-/* Animação Collapse Formulário */
+
 .form-wrapper {
   max-height: 800px;
   opacity: 1;
@@ -589,7 +589,7 @@
   pointer-events: none;
 }
 
-/* Girar a seta do toggle */
+
 .icone-toggle {
   transition: transform 0.3s ease;
 }
@@ -598,7 +598,7 @@
   transform: rotate(180deg);
 }
 
-/* Paginação */
+
 .paginacao-container {
   display: flex;
   align-items: center;
@@ -748,7 +748,7 @@
   flex-shrink: 0;
 }
 
-/* Badges Modernas */
+
 .status-badge {
   display: inline-flex;
   align-items: center;
@@ -771,7 +771,7 @@
   border: 1px solid var(--border-color);
 }
 
-/* Ações do item (Toggle de Pagamento e Botões de Editar/Remover) */
+
 .acoes-registro {
   display: flex;
   align-items: center;
@@ -815,7 +815,7 @@
   color: var(--color-gasto);
 }
 
-/* Custom iOS like Toggle Button */
+
 .acoes-item {
   padding-left: 20px;
   display: flex;
@@ -863,7 +863,7 @@
   transform: translateX(20px);
 }
 
-/* Modal Overlay e Conteúdo */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -901,7 +901,7 @@
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Modal de Edição Específico */
+
 .modal-edicao {
   width: 800px;
   max-width: 95%;
@@ -942,7 +942,7 @@
   gap: 12px;
 }
 
-/* Modal de Confirmação Detetion */
+
 .modal-delete {
   width: 440px;
   padding: 30px 40px;
@@ -1006,7 +1006,7 @@
   box-shadow: var(--shadow-sm);
 }
 
-/* Rodapé */
+
 .rodape-aplicacao {
   margin-top: 60px;
   padding: 30px 0;

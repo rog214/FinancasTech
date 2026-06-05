@@ -8,11 +8,11 @@
     </div>
     
     <button class="tema-toggle" (click)="temaService.alternarTema()" [attr.aria-label]="temaService.estaNoModoEscuro() ? 'Mudar para modo claro' : 'Mudar para modo escuro'">
-      <!-- Icone de Sol (Claro) -->
+
       <svg *ngIf="temaService.estaNoModoEscuro()" class="icon-tema" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
       </svg>
-      <!-- Icone de Lua (Escuro) -->
+
       <svg *ngIf="!temaService.estaNoModoEscuro()" class="icon-tema" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
       </svg>
@@ -174,7 +174,7 @@
           </li>
         </ul>
 
-      <!-- Controles de Paginação -->
+
       <nav class="paginacao-container" *ngIf="totalPaginas > 1" aria-label="Navegação de páginas">
         <button class="btn-paginacao" (click)="mudarPagina(paginaAtual - 1)" [disabled]="paginaAtual === 1" title="Página Anterior">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 18px; height: 18px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
@@ -191,7 +191,7 @@
   </section>
 </main>
 
-<!-- Modal de Edição -->
+
 <div class="modal-overlay" *ngIf="isEditModalOpen" (click)="fecharModais()">
   <div class="modal-conteudo modal-edicao" (click)="$event.stopPropagation()">
     <header class="modal-header">
@@ -239,7 +239,7 @@
   </div>
 </div>
 
-<!-- Modal de Confirmação de Exclusão -->
+
 <div class="modal-overlay" *ngIf="isDeleteModalOpen" (click)="fecharModais()">
   <div class="modal-conteudo modal-delete" (click)="$event.stopPropagation()">
     <div class="icon-danger-circle">

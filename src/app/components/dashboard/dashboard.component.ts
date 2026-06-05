@@ -13,7 +13,7 @@ import { TemaService } from '../../services/tema.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  TipoTransacao = TipoTransacao; // Expondo para o template usá-lo
+  TipoTransacao = TipoTransacao;
 
   receitas: Transacao[] = [];
   gastos: Transacao[] = [];
@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   abaAtiva: 'receitas' | 'gastos' = 'gastos';
   mostrarFormulario: boolean = true;
   
-  // Paginação
+
   paginaAtual: number = 1;
   itensPorPagina: number = 12;
 
@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
 
   mudarAba(aba: 'receitas' | 'gastos'): void {
     this.abaAtiva = aba;
-    this.paginaAtual = 1; // Reseta paginação ao trocar aba
+    this.paginaAtual = 1;
   }
 
   toggleFormulario(): void {
@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit {
     this.totais = this.transacaoService.calcularTotais();
   }
 
-  // Getters Inteligentes de Paginação
+
   get transacoesAtivas(): Transacao[] {
     return this.abaAtiva === 'receitas' ? this.receitas : this.gastos;
   }
@@ -86,7 +86,7 @@ export class DashboardComponent implements OnInit {
   }
 
   aoEnviar(): void {
-    // Criação via Formulário Principal
+
     const transacaoNova: Transacao = {
       id: crypto.randomUUID(),
       titulo: this.novoItem.titulo!,
@@ -122,7 +122,7 @@ export class DashboardComponent implements OnInit {
   editarTransacao(transacao: Transacao): void {
     this.itemEditandoId = transacao.id;
     
-    // Converte de YYYY-MM-DD para MM/DD para preencher o input type="text"
+
     const partes = transacao.dataVencimento.split('-');
     let dataCurta = transacao.dataVencimento;
     if(partes.length === 3) {
@@ -133,11 +133,11 @@ export class DashboardComponent implements OnInit {
     this.isEditModalOpen = true;
   }
 
-  // Preenche um Ano fake para que o HTML consiga usar o Angular DatePipe
+
   private formatarComAno(dataAberta: string): string {
     if(dataAberta.includes('/')) {
         const [dia, mes] = dataAberta.split('/');
-        // Format ISO required for pipes and sorting: YYYY-MM-DD
+
         const anoAtual = new Date().getFullYear();
         return `${anoAtual}-${mes}-${dia}`;
     }
@@ -146,7 +146,7 @@ export class DashboardComponent implements OnInit {
 
   formatarEntradaData(evento: any, contexto: 'novo' | 'editando'): void {
     let valor = evento.target.value;
-    valor = valor.replace(/\D/g, ""); // Remove tudo o que não é dígito
+    valor = valor.replace(/\D/g, "");
 
     if (valor.length >= 1) {
       if (parseInt(valor[0]) > 3) valor = '0' + valor[0];
@@ -179,7 +179,7 @@ export class DashboardComponent implements OnInit {
 
       const diasPorMes = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
       if (dia > diasPorMes[mes - 1]) {
-        dia = diasPorMes[mes - 1]; // Ajusta o dia para o final do mes correto
+        dia = diasPorMes[mes - 1];
       }
       valor = `${dia.toString().padStart(2, '0')}/${mes.toString().padStart(2, '0')}`;
     }
@@ -192,7 +192,7 @@ export class DashboardComponent implements OnInit {
 
   aoPerderFocoData(evento: any, contexto: 'novo' | 'editando'): void {
     let valor = evento.target.value;
-    // Se o usuário digitou apenas 1 ou 2 números (ex: "5" ou "12")
+
     if (valor.length > 0 && valor.length <= 2 && !valor.includes('/')) {
       let dia = parseInt(valor);
       if (dia > 31) dia = 31;

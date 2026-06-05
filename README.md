@@ -35,6 +35,5 @@ Isso significa que todos os dados inseridos são salvos diretamente no navegador
 3. Instale as dependências necessárias: `npm install`
 4. Inicie o servidor de desenvolvimento: `ng serve`
 5. Acesse a aplicação no seu navegador: `http://localhost:4200/`
-
 ---
 Desenvolvido por **Roger Fernandes**.
